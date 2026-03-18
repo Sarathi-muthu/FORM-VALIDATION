@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Register Form</title>
+    <link rel="stylesheet" href="college form .css">
+</head>
+<body>
+    <h3>M.A.M COLLEGE OF ENGINEERING AND TECHNOLOGY</h3>
+    <div class="form-container">
+        <div id="successMessage" class="success-message hidden">
+            <span class="success-icon">✓</span>
+            <p>Form submitted successfully!</p>
+        </div>
+
+        <form id="registrationForm" action="" onsubmit="return validateForm()">
+           
+            <div class="form-section">
+                <h4>Personal Information</h4>
+                
+                <div class="input-group">
+                    <label for="name">Name: <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="Enter full name" onkeyup="validateName()">
+                    <span class="validation-icon" id="name-icon"></span>
+                    <small class="help-text">Minimum 3 characters</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="gender">Gender: <span class="required">*</span></label>
+                    <select id="gender" name="gender" onchange="calculateAge()">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <span class="validation-icon" id="gender-icon"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="dob">Date of Birth: <span class="required">*</span></label>
+                    <input type="date" id="dob" name="dob" onchange="calculateAge()">
+                    <span class="validation-icon" id="dob-icon"></span>
+                    <small class="age-display" id="age-display"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="blood group">Blood Group: <span class="required">*</span></label>
+                    <select id="bloodgroup" name="bloodgroup">
+                        <option value="">Select Blood Group</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                    <span class="validation-icon" id="bloodgroup-icon"></span>
+                </div>
+            </div>
+
+            <!-- Academic Information Section -->
+            <div class="form-section">
+                <h4>Academic Information</h4>
+                
+                <div class="input-group">
+                    <label for="regno">Registration Number: <span class="required">*</span></label>
+                    <input type="text" id="regno" name="regno" placeholder="Enter registration number" onkeyup="validateRegno()">
+                    <span class="validation-icon" id="regno-icon"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="year">Year: <span class="required">*</span></label>
+                    <select id="year" name="year">
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                    <span class="validation-icon" id="year-icon"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="section">Section: <span class="required">*</span></label>
+                    <input type="text" id="section" name="section" placeholder="Enter section (e.g., A, B, C)" onkeyup="validateSection()">
+                    <span class="validation-icon" id="section-icon"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="course">Course: <span class="required">*</span></label>
+                    <select id="course" name="course">
+                        <option value="">Select a course</option>
+                        <option value="computer_science">Computer Science</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="mechanical">Mechanical</option>
+                        <option value="civil">Civil</option>
+                        <option value="chemical">Chemical</option>
+                    </select>
+                    <span class="validation-icon" id="course-icon"></span>
+                </div>
+            </div>
+
+            <!-- Contact Information Section -->
+            <div class="form-section">
+                <h4>Contact Information</h4>
+                
+                <div class="input-group">
+                    <label for="email">Email: <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" onkeyup="validateEmail()">
+                    <span class="validation-icon" id="email-icon"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="phone">Phone Number: <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter 10 digit phone number" onkeyup="validatePhone()">
+                    <span class="validation-icon" id="phone-icon"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="address">Address: <span class="required">*</span></label>
+                    <textarea id="address" name="address" placeholder="Enter your address" rows="3" onkeyup="validateAddress()"></textarea>
+                    <span class="validation-icon" id="address-icon"></span>
+                </div>
+            </div>
+
+            <!-- Security Section -->
+            <div class="form-section">
+                <h4>Security</h4>
+                
+                <div class="input-group">
+                    <label for="password">Password: <span class="required">*</span></label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Enter strong password" onkeyup="validatePassword()">
+                        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                    </div>
+                    <small class="help-text">Min 8 characters, 1 uppercase, 1 number, 1 special character</small>
+                    <div class="password-strength">
+                        <div class="strength-bar" id="strength-bar"></div>
+                        <small id="strength-text"></small>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="confirm-password">Confirm Password: <span class="required">*</span></label>
+                    <div class="password-wrapper">
+                        <input type="password" id="confirm-password" name="confirm-password" placeholder="Re-enter password" onkeyup="validatePassword()">
+                        <span class="toggle-password" onclick="toggleConfirmPassword()">👁️</span>
+                    </div>
+                    <span class="validation-icon" id="confirm-password-icon"></span>
+                </div>
+            </div>
+
+            <!-- File Upload Section -->
+            <div class="form-section">
+                <h4>Documents</h4>
+                
+                <div class="input-group">
+                    <label for="photo">Upload Photo: <span class="required">*</span></label>
+                    <input type="file" id="photo" name="photo" accept="image/*" onchange="validateFile()">
+                    <small class="help-text">JPG, PNG, GIF (Max 2MB)</small>
+                    <span id="file-name"></span>
+                </div>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="form-section">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" name="terms">
+                    <label for="terms">I agree to the <strong>Terms & Conditions</strong> <span class="required">*</span></label>
+                </div>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message"></div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="submit" class="btn-submit">Submit</button>
+                <button type="reset" class="btn-reset" onclick="resetForm()">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Real-time validation functions
+        function validateName() {
+            let name = document.getElementById("name").value;
+            let icon = document.getElementById("name-icon");
+            if (name.length >= 3) {
+                icon.innerHTML = "✓";
+                icon.style.color = "green";
+            } else {
+                icon.innerHTML = "";
+            }
+        }
+
+        function validateRegno() {
+            let regno = document.getElementById("regno").value;
+            let icon = document.getElementById("regno-icon");
+            if (regno.length >= 3) {
+                icon.innerHTML = "✓";
+                icon.style.color = "green";
+            } else {
+                icon.innerHTML = "";
+            }
+        }
+
+        function validateSection() {
+            let section = document.getElementById("section").value;
+            let icon = document.getElementById("section-icon");
+            if (section.length > 0) {
+                icon.innerHTML = "✓";
+                icon.style.color = "green";
+            } else {
+                icon.innerHTML = "";
+            }
+        }
+
+        function validateEmail() {
+            let email = document.getElementById("email").value;
+            let icon = document.getElementById("email-icon");
+            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailRegex.test(email)) {
+                icon.innerHTML = "✓";
+                icon.style.color = "green";
+            } else {
+                icon.innerHTML = email.length > 0 ? "✗" : "";
+                icon.style.color = "red";
+            }
+        }
+
+        function validatePhone() {
+            let phone = document.getElementById("phone").value;
+            let icon = document.getElementById("phone-icon");
+            if (phone.length === 10 && !isNaN(phone)) {
+                icon.innerHTML = "✓";
+                icon.style.color = "green";
+            } else {
+                icon.innerHTML = phone.length > 0 ? "✗" : "";
+                icon.style.color = "red";
+            }
+        }
+
+        function validateAddress() {
+            let address = document.getElementById("address").value;
+            let icon = document.getElementById("address-icon");
+            if (address.length >= 5) {
+                icon.innerHTML = "✓";
+                icon.style.color = "green";
+            } else {
+                icon.innerHTML = "";
+            }
+        }
+
+        function validatePassword() {
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm-password").value;
+            let strengthBar = document.getElementById("strength-bar");
+            let strengthText = document.getElementById("strength-text");
+            let confirmIcon = document.getElementById("confirm-password-icon");
+
+            
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[!@#$%^&*]/.test(password)) strength++;
+
+            
+            strengthBar.style.width = (strength * 25) + "%";
+            if (strength === 1) {
+                strengthBar.style.backgroundColor = "red";
+                strengthText.innerHTML = "Weak";
+            } else if (strength === 2) {
+                strengthBar.style.backgroundColor = "orange";
+                strengthText.innerHTML = "Fair";
+            } else if (strength === 3) {
+                strengthBar.style.backgroundColor = "lightgreen";
+                strengthText.innerHTML = "Good";
+            } else if (strength === 4) {
+                strengthBar.style.backgroundColor = "green";
+                strengthText.innerHTML = "Strong";
+            } else {
+                strengthBar.style.width = "0%";
+                strengthText.innerHTML = "";
+            }
+
+            if (confirmPassword && password === confirmPassword) {
+                confirmIcon.innerHTML = "✓";
+                confirmIcon.style.color = "green";
+            } else if (confirmPassword) {
+                confirmIcon.innerHTML = "✗";
+                confirmIcon.style.color = "red";
+            } else {
+                confirmIcon.innerHTML = "";
+            }
+        }
+
+        function validateFile() {
+            let file = document.getElementById("photo").files[0];
+            let fileName = document.getElementById("file-name");
+            if (file) {
+                if (file.type.startsWith("image/") && file.size <= 2097152) {
+                    fileName.innerHTML = "<span style='color: green;'>✓ " + file.name + " (Valid)</span>";
+                } else {
+                    fileName.innerHTML = "<span style='color: red;'>✗ File must be an image and less than 2MB</span>";
+                }
+            }
+        }
+
+        function calculateAge() {
+            let dob = document.getElementById("dob").value;
+            let gender = document.getElementById("gender").value;
+            let ageDisplay = document.getElementById("age-display");
+            let dobIcon = document.getElementById("dob-icon");
+            let genderIcon = document.getElementById("gender-icon");
+
+            if (dob && gender) {
+                let birthDate = new Date(dob);
+                let today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                let monthDifference = today.getMonth() - birthDate.getMonth();
+
+                if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+
+                ageDisplay.innerHTML = "Age: " + age + " years";
+                dobIcon.innerHTML = "✓";
+                dobIcon.style.color = "green";
+                genderIcon.innerHTML = "✓";
+                genderIcon.style.color = "green";
+            }
+        }
+
+        function togglePassword() {
+            let password = document.getElementById("password");
+            password.type = password.type === "password" ? "text" : "password";
+        }
+
+        function toggleConfirmPassword() {
+            let confirmPassword = document.getElementById("confirm-password");
+            confirmPassword.type = confirmPassword.type === "password" ? "text" : "password";
+        }
+
+        function resetForm() {
+            document.getElementById("registrationForm").reset();
+            document.getElementById("errorMessage").innerHTML = "";
+            document.getElementById("successMessage").classList.add("hidden");
+            
+           
+            document.querySelectorAll(".validation-icon").forEach(icon => {
+                icon.innerHTML = "";
+            });
+            document.getElementById("strength-bar").style.width = "0%";
+            document.getElementById("strength-text").innerHTML = "";
+        }
+
+        function validateForm() {
+            let name = document.getElementById("name").value.trim();
+            let regno = document.getElementById("regno").value.trim();
+            let dob = document.getElementById("dob").value;
+            let year = document.getElementById("year").value;
+            let email = document.getElementById("email").value.trim();
+            let phone = document.getElementById("phone").value.trim();
+            let course = document.getElementById("course").value;
+            let section = document.getElementById("section").value.trim();
+            let bloodgroup = document.getElementById("bloodgroup").value;
+            let address = document.getElementById("address").value.trim();
+            let gender = document.getElementById("gender").value;
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm-password").value;
+            let photo = document.getElementById("photo").files.length;
+            let terms = document.getElementById("terms").checked;
+            let errorMessage = document.getElementById("errorMessage");
+            let successMessage = document.getElementById("successMessage");
+
+            errorMessage.innerHTML = "";
+            successMessage.classList.add("hidden");
+
+            if (name === "") {
+                errorMessage.innerHTML = "❌ Error: Name cannot be empty!";
+                return false;
+            } else if (name.length < 3) {
+                errorMessage.innerHTML = "❌ Error: Name must be at least 3 characters long!";
+                return false;
+            } else if (gender === "") {
+                errorMessage.innerHTML = "❌ Error: Please select a gender!";
+                return false;
+            } else if (dob === "") {
+                errorMessage.innerHTML = "❌ Error: Date of Birth cannot be empty!";
+                return false;
+            } else if (bloodgroup === "") {
+                errorMessage.innerHTML = "❌ Error: Please select a blood group!";
+                return false;
+            } else if (regno === "") {
+                errorMessage.innerHTML = "❌ Error: Registration number cannot be empty!";
+                return false;
+            } else if (section === "") {
+                errorMessage.innerHTML = "❌ Error: Section cannot be empty!";
+                return false;
+            } else if (year === "") {
+                errorMessage.innerHTML = "❌ Error: Please select a year!";
+                return false;
+            } else if (course === "") {
+                errorMessage.innerHTML = "❌ Error: Please select a course!";
+                return false;
+            } else if (email === "") {
+                errorMessage.innerHTML = "❌ Error: Email cannot be empty!";
+                return false;
+            } else if (!email.includes("@") || !email.includes(".")) {
+                errorMessage.innerHTML = "❌ Error: Please enter a valid email address!";
+                return false;
+            } else if (phone === "") {
+                errorMessage.innerHTML = "❌ Error: Phone number cannot be empty!";
+                return false;
+            } else if (phone.length !== 10) {
+                errorMessage.innerHTML = "❌ Error: Phone number must be exactly 10 digits!";
+                return false;
+            } else if (isNaN(phone)) {
+                errorMessage.innerHTML = "❌ Error: Phone number must contain only digits!";
+                return false;
+            } else if (address === "") {
+                errorMessage.innerHTML = "❌ Error: Address cannot be empty!";
+                return false;
+            } else if (address.length < 5) {
+                errorMessage.innerHTML = "❌ Error: Address must be at least 5 characters long!";
+                return false;
+            } else if (password === "") {
+                errorMessage.innerHTML = "❌ Error: Password cannot be empty!";
+                return false;
+            } else if (password.length < 8) {
+                errorMessage.innerHTML = "❌ Error: Password must be at least 8 characters long!";
+                return false;
+            } else if (!/[A-Z]/.test(password)) {
+                errorMessage.innerHTML = "❌ Error: Password must contain at least one uppercase letter!";
+                return false;
+            } else if (!/[0-9]/.test(password)) {
+                errorMessage.innerHTML = "❌ Error: Password must contain at least one number!";
+                return false;
+            } else if (!/[!@#$%^&*]/.test(password)) {
+                errorMessage.innerHTML = "❌ Error: Password must contain at least one special character (!@#$%^&*)!";
+                return false;
+            } else if (password !== confirmPassword) {
+                errorMessage.innerHTML = "❌ Error: Passwords do not match!";
+                return false;
+            } else if (photo === 0) {
+                errorMessage.innerHTML = "❌ Error: Please upload a photo!";
+                return false;
+            } else if (!terms) {
+                errorMessage.innerHTML = "❌ Error: You must agree to the Terms & Conditions!";
+                return false;
+            } else {
+                
+                successMessage.classList.remove("hidden");
+                let submissionData = `
+                    Name: ${name}
+                    Gender: ${gender}
+                    Date of Birth: ${dob}
+                    Blood Group: ${bloodgroup}
+                    Registration Number: ${regno}
+                    Section: ${section}
+                    Year: ${year}
+                    Course: ${course}
+                    Email: ${email}
+                    Phone: ${phone}
+                    Address: ${address}
+                `;
+                console.log("Form Data:", submissionData);
+                
+               
+                setTimeout(() => {
+                    resetForm();
+                }, 2000);
+                
+                return false;
+            }
+        }
+    </script>
+
+</body>
+</html>
